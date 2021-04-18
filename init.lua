@@ -538,7 +538,8 @@ minetest.register_node( "nether:glowstone", {
 minetest.register_on_generated(function(minp, maxp)
 	local addpos = {}
 	hadesthronecounter = 1
-	if ((maxp.y >= NETHER_BOTTOM) and (minp.y <= NETHER_DEPTH)) then
+	--if ((maxp.y >= NETHER_BOTTOM) and (minp.y <= NETHER_DEPTH)) then
+	if ((maxp.y >= (NETHER_BOTTOM - 5)) and (minp.y <= (NETHER_DEPTH + 5))) then
 		-- Pass 1: Terrain generation
 		for x=minp.x, maxp.x, 1 do
 			for y=minp.y, maxp.y, 1 do
@@ -559,6 +560,11 @@ minetest.register_on_generated(function(minp, maxp)
 						minetest.env:add_node(addpos, {name="nether:netherrack"})
 					elseif y <= NETHER_DEPTH and y >= NETHER_BOTTOM then
 						minetest.env:add_node(addpos, {name="air"})
+					end
+					if y > NETHER_DEPTH and y < (NETHER_DEPTH + 5) then
+						minetest.env:add_node(addpos, {name="nether:netherrack"})
+					elseif y < NETHER_BOTTOM and y > (NETHER_BOTTOM - 5) then
+						minetest.env:add_node(addpos, {name="nether:netherrack"})
 					end
 				end
 			end
